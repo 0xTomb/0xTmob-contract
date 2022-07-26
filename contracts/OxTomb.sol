@@ -203,7 +203,9 @@ contract oxTomb is ERC721, Ownable {
     }
 
     modifier onlyOwnerOrCreator() {
-        require(msg.sender == owner() || msg.sender == _tokens[_tokenId].user);
+        require(
+            _msgSender() == owner() || _msgSender() == _tokens[_tokenId].user
+        );
         _;
     }
 }
