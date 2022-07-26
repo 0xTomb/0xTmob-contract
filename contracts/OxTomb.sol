@@ -34,7 +34,7 @@ contract oxTomb is ERC721, Ownable {
     mapping(uint => TokenInfoStruct) private _tokens;
 
     constructor(string memory name_, string memory symbol_)
-    ERC721(name_, symbol_)
+        ERC721(name_, symbol_)
     {}
 
     function mint(address player) public payable {
@@ -50,17 +50,17 @@ contract oxTomb is ERC721, Ownable {
     }
 
     function tokenURI(uint256 tokenId)
-    public
-    view
-    virtual
-    override
-    returns (string memory)
+        public
+        view
+        virtual
+        override
+        returns (string memory)
     {
         string memory baseURI = _baseURI();
         return
-        bytes(baseURI).length != 0
-        ? string(abi.encodePacked(baseURI, toString(tokenId), ".json"))
-        : "";
+            bytes(baseURI).length != 0
+                ? string(abi.encodePacked(baseURI, toString(tokenId), ".json"))
+                : "";
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
@@ -81,9 +81,9 @@ contract oxTomb is ERC721, Ownable {
 
     // 查询token的归属与有效期
     function queryExpiresByTokenId(uint _tokenId)
-    public
-    view
-    returns (TokenInfoStruct memory)
+        public
+        view
+        returns (TokenInfoStruct memory)
     {
         return _tokens[_tokenId];
     }
@@ -124,7 +124,7 @@ contract oxTomb is ERC721, Ownable {
                 revert(ptr, returndatasize())
             }
             default {
-                return (ptr, returndatasize())
+                return(ptr, returndatasize())
             }
         }
     }
