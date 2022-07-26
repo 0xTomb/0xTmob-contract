@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: CC0-1.0
 pragma solidity ^0.8.0;
 
-import "hardhat/console.sol";
+/* import "hardhat/console.sol"; */
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
@@ -9,13 +9,15 @@ contract oxTomb is ERC721, Ownable {
     uint64 counter = 1;
 
     // 合约配置项
-    string BASEURI;
+    string BASEURI; // 刻字：有字碑文
+    string DEFAULTURI; // 默认：无字碑
     string CONTRACTURI;
     address PROXYADDRESS;
 
     // 基础配置
     uint subscriptionCycle = 7 days; // 7天
     uint sellPrice = 0.0088 ether;
+    uint subscriptionPrice = 0.0088 ether;
 
     // 事件：更新有效期时间
     event UpdateExpires(
@@ -28,21 +30,43 @@ contract oxTomb is ERC721, Ownable {
         address user;
         uint expires;
         uint transferTimes;
+        bool isLettering;
     }
 
     // tokenId 与 其下信息的映射
     mapping(uint => TokenInfoStruct) private _tokens;
+    mapping(uint => string) private _tokenURIs;
 
     constructor(string memory name_, string memory symbol_)
         ERC721(name_, symbol_)
     {}
 
-    function mint(address player) public payable {
+    // 铸造一个新的tokenId
+    function mint(address player) external payable {
+        require(msg.value == sellPrice);
         _mint(player, counter);
         extendExpiresTimeByTokenId(counter);
         _tokens[counter].user = player;
         _tokens[counter].transferTimes = 1;
         counter++;
+    }
+
+    // 延长订阅一个tokenId
+    function subscription(uint _tokenId) external payable onlyOwnerOrCreator {
+        require(msg.value >= subscriptionPrice);
+        extendExpiresTimeByTokenId(_tokenId);
+    }
+
+    function lettering(uint _tokenId, string memory _tokenURI)
+        external
+        onlyOwnerOrCreator
+    {
+        TokenInfoStruct token = _tokens[_tokenId];
+        require(token.isLettering == false);
+        require(token.expires > block.timestamp);
+
+        _tokenURIs[_tokenId] = _tokenURI;
+        token.isLettering = true;
     }
 
     function contractURI() public view returns (string memory) {
@@ -56,11 +80,19 @@ contract oxTomb is ERC721, Ownable {
         override
         returns (string memory)
     {
-        string memory baseURI = _baseURI();
-        return
-            bytes(baseURI).length != 0
-                ? string(abi.encodePacked(baseURI, toString(tokenId), ".json"))
-                : "";
+        TokenInfoStruct memory token = _tokens[tokenId];
+        if (token.isLettering) {
+            return
+                string(
+                    abi.encodePacked(
+                        _tokenURIs[tokenId],
+                        toString(tokenId),
+                        ".json"
+                    )
+                );
+        } else {
+            return DEFAULTURI;
+        }
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
@@ -81,7 +113,7 @@ contract oxTomb is ERC721, Ownable {
 
     // 查询token的归属与有效期
     function queryExpiresByTokenId(uint _tokenId)
-        public
+        external
         view
         returns (TokenInfoStruct memory)
     {
@@ -89,7 +121,7 @@ contract oxTomb is ERC721, Ownable {
     }
 
     // 当前tokenid是否在有效期内
-    function isExpiresByTokenId(uint _tokenId) public view returns (bool) {
+    function isExpiresByTokenId(uint _tokenId) external view returns (bool) {
         if (_tokens[_tokenId].expires >= block.timestamp) return true;
         return false;
     }
@@ -131,25 +163,33 @@ contract oxTomb is ERC721, Ownable {
 
     receive() external payable {}
 
-    function setContractURI(string memory _contractURI) public onlyOwner {
+    function setContractURI(string memory _contractURI) external onlyOwner {
         CONTRACTURI = _contractURI;
     }
 
-    function setBaseURI(string memory baseURI) public onlyOwner {
+    function setBaseURI(string memory baseURI) external onlyOwner {
         BASEURI = baseURI;
     }
 
-    function setProxyContract(address _proxyAddress) public onlyOwner {
+    function setProxyContract(address _proxyAddress) external onlyOwner {
         PROXYADDRESS = _proxyAddress;
     }
 
     // 设置每一轮的时间
-    function setSubscriptionCycle(uint _time) public onlyOwner {
+    function setSubscriptionCycle(uint _time) external onlyOwner {
         subscriptionCycle = _time;
     }
 
-    function setSellPrice(uint _sellPrice) public onlyOwner {
+    function setSellPrice(uint _sellPrice) external onlyOwner {
         sellPrice = _sellPrice;
+    }
+
+    function setSubscriptionPrice(uint _subscriptionPrice) external onlyOwner {
+        subscriptionPrice = _subscriptionPrice;
+    }
+
+    function serDefaultURI(string memory _defaultURI) external onlyOwner {
+        DEFAULTURI = _defaultURI;
     }
 
     function _afterTokenTransfer(
@@ -160,5 +200,10 @@ contract oxTomb is ERC721, Ownable {
         TokenInfoStruct memory token = _tokens[tokenId];
         token.transferTimes++;
         token.user = to;
+    }
+
+    modifier onlyOwnerOrCreator() {
+        require(msg.sender == owner() || msg.sender == _tokens[_tokenId].user);
+        _;
     }
 }
