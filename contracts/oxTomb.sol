@@ -13,7 +13,7 @@ contract oxTomb is ERC721, Ownable {
     address PROXYADDRESS;
 
     // 基础配置
-    uint subscriptionCycle = 7 days;
+    uint subscriptionCycle = 7 days; // 7天
     uint sellPrice = 0.0088 ether;
 
     // 事件：更新有效期时间
@@ -33,15 +33,14 @@ contract oxTomb is ERC721, Ownable {
     mapping(uint => TokenInfoStruct) private _tokens;
 
     constructor(string memory name_, string memory symbol_)
-        ERC721(name_, symbol_)
+    ERC721(name_, symbol_)
     {}
 
     function mint(address player) public payable {
         _mint(player, counter);
-        TokenInfoStruct memory token = _tokens[counter];
         extendExpiresTimeByTokenId(counter);
-        token.user = player;
-        token.transferTimes = 1;
+        _tokens[counter].user = player;
+        _tokens[counter].transferTimes = 1;
         counter++;
     }
 
@@ -50,17 +49,17 @@ contract oxTomb is ERC721, Ownable {
     }
 
     function tokenURI(uint256 tokenId)
-        public
-        view
-        virtual
-        override
-        returns (string memory)
+    public
+    view
+    virtual
+    override
+    returns (string memory)
     {
         string memory baseURI = _baseURI();
         return
-            bytes(baseURI).length != 0
-                ? string(abi.encodePacked(baseURI, toString(tokenId), ".json"))
-                : "";
+        bytes(baseURI).length != 0
+        ? string(abi.encodePacked(baseURI, toString(tokenId), ".json"))
+        : "";
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
@@ -81,9 +80,9 @@ contract oxTomb is ERC721, Ownable {
 
     // 查询token的归属与有效期
     function queryExpiresByTokenId(uint _tokenId)
-        public
-        view
-        returns (TokenInfoStruct memory)
+    public
+    view
+    returns (TokenInfoStruct memory)
     {
         return _tokens[_tokenId];
     }
@@ -124,7 +123,7 @@ contract oxTomb is ERC721, Ownable {
                 revert(ptr, returndatasize())
             }
             default {
-                return(ptr, returndatasize())
+                return (ptr, returndatasize())
             }
         }
     }
