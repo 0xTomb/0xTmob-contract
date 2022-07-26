@@ -3,14 +3,30 @@ import {anyValue} from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 import {expect} from "chai";
 import {ethers} from "hardhat";
 
-describe("oxTomb", function () {
+describe("oxTomb-Base", function () {
+
+    const projectName = "oxTomb";
+    const projectSymbol = "OX";
+
     // 基本实例
     async function deployOxTombFixture() {
         const [owner, otherAddress] = await ethers.getSigners();
         const oxTomb = await ethers.getContractFactory("oxTomb");
-        const oxTombInstance = await oxTomb.deploy("0xTomb", "TM");
+        const oxTombInstance = await oxTomb.deploy(projectName, projectSymbol);
         return {owner, otherAddress, oxTombInstance};
     }
+
+    describe("introduce", async () => {
+        it("Name, Symbol", async () => {
+            const {oxTombInstance} = await loadFixture(deployOxTombFixture);
+            const name = await oxTombInstance.name();
+            const symbol = await oxTombInstance.symbol();
+
+            expect(name).to.equal(projectName);
+            expect(symbol).to.equal(projectSymbol);
+        })
+
+    })
 
     describe("owner", () => {
         it("owner是部署时合约时的地址,且可供外部访问", async () => {
@@ -68,6 +84,4 @@ describe("oxTomb", function () {
             expect(metadata).to.equal(defaultURI + randomTokenID + ".json");
         })
     })
-
-    
 })
