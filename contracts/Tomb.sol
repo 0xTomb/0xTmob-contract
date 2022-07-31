@@ -35,6 +35,7 @@ contract Tomb is ERC721, Ownable {
     // tokenId 与 其下信息的映射
     mapping(uint => TokenInfoStruct) private _tokens;
     mapping(uint => string) private _tokenURIHash;
+    mapping(address => uint[]) public userOf;
 
     event Letter(uint indexed tokenId);
 
@@ -54,6 +55,7 @@ contract Tomb is ERC721, Ownable {
         extendExpiresTimeByTokenId(counter);
         _tokens[counter].user = player;
         _tokens[counter].transferTimes = 1;
+        userOf[player].push(counter);
         counter++;
         return counter;
     }

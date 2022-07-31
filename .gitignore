@@ -9,3 +9,6 @@ typechain-types
 cache
 artifacts
 node_modules
+.env
+.env.js
+.env.ts
