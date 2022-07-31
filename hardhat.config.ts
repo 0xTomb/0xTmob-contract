@@ -1,5 +1,8 @@
 import {HardhatUserConfig} from "hardhat/config";
+
+import '@openzeppelin/hardhat-upgrades';
 import "@nomicfoundation/hardhat-toolbox";
+
 
 const settings = {
     optimizer: {
@@ -11,8 +14,7 @@ const settings = {
 const config: HardhatUserConfig = {
     solidity: {
         compilers: [
-            {version: "0.8.0", settings},
-            {version: "0.8.9", settings},
+            {version: "0.8.12", settings},
         ],
     },
 };

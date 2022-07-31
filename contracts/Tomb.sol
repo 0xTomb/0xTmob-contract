@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: CC0-1.0
 pragma solidity ^0.8.0;
 
-/* import "hardhat/console.sol"; */
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-contract oxTomb is ERC721, Ownable {
+contract Tomb is ERC721, Ownable {
     uint64 counter = 1;
 
     // 合约配置项
@@ -35,38 +34,46 @@ contract oxTomb is ERC721, Ownable {
 
     // tokenId 与 其下信息的映射
     mapping(uint => TokenInfoStruct) private _tokens;
-    mapping(uint => string) private _tokenURIs;
+    mapping(uint => string) private _tokenURIHash;
+
+    event Letter(uint indexed tokenId);
 
     constructor(string memory name_, string memory symbol_)
         ERC721(name_, symbol_)
     {}
 
     // 铸造一个新的tokenId
-    function mint(address player) external payable {
-        require(msg.value == sellPrice);
-        _mint(player, counter);
+    function mint(address player, string memory hash)
+        external
+        payable
+        returns (uint)
+    {
+        // require(msg.value == sellPrice);
+        _mint(player, counter); // mint
+        _tokenURIHash[counter] = hash; // metadata
         extendExpiresTimeByTokenId(counter);
         _tokens[counter].user = player;
         _tokens[counter].transferTimes = 1;
         counter++;
+        return counter;
     }
 
     // 延长订阅一个tokenId
-    function subscription(uint _tokenId) external payable onlyOwnerOrCreator {
-        require(msg.value >= subscriptionPrice);
+    function subscription(uint _tokenId)
+        external
+        payable
+        onlyOwnerOrCreator(_tokenId)
+    {
+        // require(msg.value >= subscriptionPrice);
         extendExpiresTimeByTokenId(_tokenId);
     }
 
-    function lettering(uint _tokenId, string memory _tokenURI)
-        external
-        onlyOwnerOrCreator
-    {
-        TokenInfoStruct token = _tokens[_tokenId];
+    function lettering(uint _tokenId) external onlyOwnerOrCreator(_tokenId) {
+        TokenInfoStruct memory token = _tokens[_tokenId];
         require(token.isLettering == false);
         require(token.expires > block.timestamp);
-
-        _tokenURIs[_tokenId] = _tokenURI;
         token.isLettering = true;
+        emit Letter(_tokenId);
     }
 
     function contractURI() public view returns (string memory) {
@@ -81,12 +88,12 @@ contract oxTomb is ERC721, Ownable {
         returns (string memory)
     {
         TokenInfoStruct memory token = _tokens[tokenId];
-        if (token.isLettering) {
+        if (token.isLettering && token.expires > block.timestamp) {
             return
                 string(
                     abi.encodePacked(
-                        _tokenURIs[tokenId],
-                        toString(tokenId),
+                        _baseURI(),
+                        _tokenURIHash[tokenId],
                         ".json"
                     )
                 );
@@ -202,7 +209,7 @@ contract oxTomb is ERC721, Ownable {
         token.user = to;
     }
 
-    modifier onlyOwnerOrCreator() {
+    modifier onlyOwnerOrCreator(uint _tokenId) {
         require(
             _msgSender() == owner() || _msgSender() == _tokens[_tokenId].user
         );

@@ -1,23 +1,16 @@
-import {ethers} from "hardhat";
+import { ethers, upgrades } from "hardhat";
 
 async function main() {
+  const Tomb = await ethers.getContractFactory("Tomb");
+  const TombInstance = await Tomb.deploy("kaso", "qian");
 
-    const [deployer] = await ethers.getSigners();
-
-    console.log("Deploying contracts with the account:", deployer.address);     // 部署人的地址
-    console.log("Account balance:", (await deployer.getBalance()).toString()); // 部署人的balance
-
-    // 选择合约
-    const Token = await ethers.getContractFactory("oxTomb");
-    // 部署合约
-    const token = await Token.deploy("666w1", "666w2");
-
-    console.log("Token address:", token.address);   // 部署后的合约地址
+  const result = await TombInstance.deployed();
+  console.log(JSON.stringify(result)); // 部署后的合约地址
 }
 
 main()
-    .then(() => process.exit(0))
-    .catch(error => {
-        console.error(error);
-        process.exit(1);
-    });
+  .then(() => process.exit(0))
+  .catch(error => {
+    console.error(error);
+    process.exit(1);
+  });
