@@ -8,7 +8,7 @@ describe("oxTomb-service", function () {
 
     async function deployOxTombFixture() {
         const [owner, otherAddress] = await ethers.getSigners();
-        const oxTomb = await ethers.getContractFactory("oxTomb");
+        const oxTomb = await ethers.getContractFactory("Tomb");
         const oxTombInstance = await oxTomb.deploy(projectName, projectSymbol);
         return {owner, otherAddress, oxTombInstance};
     }

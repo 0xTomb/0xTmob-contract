@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: CC0-1.0
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "./src/auth/Auth.sol";
+import "./src/ERC/ERC721.sol";
 
-contract Tomb is ERC721, Ownable {
+contract Tomb is ERC721,Auth {
     uint64 counter = 1;
 
     // 合约配置项

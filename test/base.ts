@@ -5,13 +5,13 @@ import {ethers} from "hardhat";
 
 describe("oxTomb-Base", function () {
 
-    const projectName = "oxTomb";
+    const projectName = "Tomb";
     const projectSymbol = "OX";
 
     // 基本实例
     async function deployOxTombFixture() {
         const [owner, otherAddress] = await ethers.getSigners();
-        const oxTomb = await ethers.getContractFactory("oxTomb");
+        const oxTomb = await ethers.getContractFactory("Tomb");
         const oxTombInstance = await oxTomb.deploy(projectName, projectSymbol);
         return {owner, otherAddress, oxTombInstance};
     }
