@@ -4,8 +4,9 @@ pragma solidity ^0.8.0;
 import "./src/auth/Auth.sol";
 import "./src/ERC/ERC721.sol";
 
-contract Tomb is ERC721,Auth {
-    uint64 counter = 1;
+contract Tomb is ERC721, Auth {
+    uint64 counter;
+    bool hasInitLize;
 
     // 合约配置项
     string BASEURI; // 刻字：有字碑文
@@ -14,9 +15,9 @@ contract Tomb is ERC721,Auth {
     address PROXYADDRESS;
 
     // 基础配置
-    uint subscriptionCycle = 7 days; // 7天
-    uint sellPrice = 0.0088 ether;
-    uint subscriptionPrice = 0.0088 ether;
+    uint subscriptionCycle; // 7天
+    uint sellPrice;
+    uint subscriptionPrice;
 
     // 事件：更新有效期时间
     event UpdateExpires(
@@ -39,9 +40,19 @@ contract Tomb is ERC721,Auth {
 
     event Letter(uint indexed tokenId);
 
-    constructor(string memory name_, string memory symbol_)
-        ERC721(name_, symbol_)
-    {}
+    function initialize(string memory _name, string memory _symbol) public {
+        require(!hasInitLize);
+
+        ERC721Init(_name, _symbol); // ERC721初始化
+        counter++; // 初始化conter为1
+        _transferOwnership(msg.sender); // 移交owner权限
+
+        subscriptionCycle = 7 days;
+        sellPrice = 0.088 ether;
+        subscriptionPrice = 0.088 ether;
+
+        hasInitLize = true;
+    }
 
     // 铸造一个新的tokenId
     function mint(address player, string memory hash)
@@ -152,22 +163,6 @@ contract Tomb is ERC721,Auth {
             value /= 10;
         }
         return string(buffer);
-    }
-
-    fallback() external payable {
-        (bool success, bytes memory res) = PROXYADDRESS.delegatecall(msg.data);
-        res;
-        assembly {
-            let ptr := mload(0x40)
-            returndatacopy(ptr, 0, returndatasize())
-            switch success
-            case 0 {
-                revert(ptr, returndatasize())
-            }
-            default {
-                return(ptr, returndatasize())
-            }
-        }
     }
 
     receive() external payable {}

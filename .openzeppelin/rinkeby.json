@@ -1,0 +1,265 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0xe49be223dE3354090139100aA08ce6c6928aC574",
+    "txHash": "0x1dca9657aad4ff978912b63cdf3153b4135e99374a065759a11d04f0657d5d17"
+  },
+  "proxies": [
+    {
+      "address": "0x0E33eFC0fb8A31088e04D71490428Ad4193E1371",
+      "txHash": "0xb5212d02340db000c1b949298745a42373c07cf1622a2e427924044e98734348",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x620F5A89c3E7E37223aa118B05DFeA1B339d5dc4",
+      "txHash": "0xa68c5be12c5567cd8210bb43d805126ef437f193d81b9e725f89655a5cd944a3",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "b8372647787a9a6c9f07fbd61efc8cec3cc7b8d55509d19541151207b58eef10": {
+      "address": "0xe37031608A36C4C8011E1C89a1DE314571ECAAf9",
+      "txHash": "0x372c79b03ab615adbf31038aae9a88108be6a5eedb9e3c815e2ce1df31fe24e7",
+      "layout": {
+        "storage": [
+          {
+            "label": "_name",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_string_storage",
+            "contract": "ERC721",
+            "src": "contracts/src/ERC/ERC721.sol:19"
+          },
+          {
+            "label": "_symbol",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage",
+            "contract": "ERC721",
+            "src": "contracts/src/ERC/ERC721.sol:22"
+          },
+          {
+            "label": "_owners",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_uint256,t_address)",
+            "contract": "ERC721",
+            "src": "contracts/src/ERC/ERC721.sol:25"
+          },
+          {
+            "label": "_balances",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "ERC721",
+            "src": "contracts/src/ERC/ERC721.sol:28"
+          },
+          {
+            "label": "_tokenApprovals",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_uint256,t_address)",
+            "contract": "ERC721",
+            "src": "contracts/src/ERC/ERC721.sol:31"
+          },
+          {
+            "label": "_operatorApprovals",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
+            "contract": "ERC721",
+            "src": "contracts/src/ERC/ERC721.sol:34"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_address",
+            "contract": "Auth",
+            "src": "contracts/src/auth/Auth.sol:5"
+          },
+          {
+            "label": "counter",
+            "offset": 20,
+            "slot": "6",
+            "type": "t_uint64",
+            "contract": "Tomb",
+            "src": "contracts/Tomb.sol:8"
+          },
+          {
+            "label": "hasInitLize",
+            "offset": 28,
+            "slot": "6",
+            "type": "t_bool",
+            "contract": "Tomb",
+            "src": "contracts/Tomb.sol:9"
+          },
+          {
+            "label": "BASEURI",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_string_storage",
+            "contract": "Tomb",
+            "src": "contracts/Tomb.sol:12"
+          },
+          {
+            "label": "DEFAULTURI",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_string_storage",
+            "contract": "Tomb",
+            "src": "contracts/Tomb.sol:13"
+          },
+          {
+            "label": "CONTRACTURI",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_string_storage",
+            "contract": "Tomb",
+            "src": "contracts/Tomb.sol:15"
+          },
+          {
+            "label": "PROXYADDRESS",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_address",
+            "contract": "Tomb",
+            "src": "contracts/Tomb.sol:18"
+          },
+          {
+            "label": "subscriptionCycle",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_uint256",
+            "contract": "Tomb",
+            "src": "contracts/Tomb.sol:19"
+          },
+          {
+            "label": "sellPrice",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_uint256",
+            "contract": "Tomb",
+            "src": "contracts/Tomb.sol:22"
+          },
+          {
+            "label": "subscriptionPrice",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_uint256",
+            "contract": "Tomb",
+            "src": "contracts/Tomb.sol:23"
+          },
+          {
+            "label": "_tokens",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_mapping(t_uint256,t_struct(TokenInfoStruct)42_storage)",
+            "contract": "Tomb",
+            "src": "contracts/Tomb.sol:38"
+          },
+          {
+            "label": "_tokenURIHash",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_mapping(t_uint256,t_string_storage)",
+            "contract": "Tomb",
+            "src": "contracts/Tomb.sol:39"
+          },
+          {
+            "label": "userOf",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
+            "contract": "Tomb",
+            "src": "contracts/Tomb.sol:41"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)dyn_storage": {
+            "label": "uint256[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
+            "label": "mapping(address => uint256[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_bool))": {
+            "label": "mapping(address => mapping(address => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_address)": {
+            "label": "mapping(uint256 => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_string_storage)": {
+            "label": "mapping(uint256 => string)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(TokenInfoStruct)42_storage)": {
+            "label": "mapping(uint256 => struct Tomb.TokenInfoStruct)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(TokenInfoStruct)42_storage": {
+            "label": "struct Tomb.TokenInfoStruct",
+            "members": [
+              {
+                "label": "user",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "expires",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "transferTimes",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "isLettering",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "3"
+              }
+            ],
+            "numberOfBytes": "128"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          }
+        }
+      }
+    }
+  }
+}

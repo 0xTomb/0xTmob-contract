@@ -4,11 +4,10 @@ pragma solidity ^0.8.0;
 abstract contract Auth {
     address private _owner;
 
-    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
-
-    constructor() {
-        _transferOwnership(msg.sender);
-    }
+    event OwnershipTransferred(
+        address indexed previousOwner,
+        address indexed newOwner
+    );
 
     modifier onlyOwner() {
         _checkOwner();
@@ -28,7 +27,10 @@ abstract contract Auth {
     }
 
     function transferOwnership(address newOwner) public virtual onlyOwner {
-        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        require(
+            newOwner != address(0),
+            "Ownable: new owner is the zero address"
+        );
         _transferOwnership(newOwner);
     }
 
