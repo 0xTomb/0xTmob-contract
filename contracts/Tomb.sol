@@ -5,8 +5,9 @@ import "./src/data/Contract.sol";
 import "./src/data/Metadata.sol";
 import "./src/sub/Sub.sol";
 import "./src/Letter/Letter.sol";
+import "'./src/weathering/Weathering.sol";
 
-contract Tomb is Contract, Metadata, Sub, Letter {
+contract Tomb is Contract, Metadata, Sub, Letter, Weathering {
     bool hasInitLize; // 初始化
     uint sellPrice; // 出售价格
 
@@ -45,5 +46,6 @@ contract Tomb is Contract, Metadata, Sub, Letter {
         require(ownerOf(_tokenID) == to);
         _toeknRevokeSub(_tokenID);
         _setHashLetter(_tokenID, false);
+        _addWeatheringTimes(_tokenID);
     }
 }
