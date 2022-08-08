@@ -16,6 +16,9 @@ contract Sub is Auth {
         uint expires
     );
 
+    // token过期提醒事件
+    event TokenIsExp(uint indexed tokenId);
+
     // 设置单轮订阅时长
     function setSubCycle(uint _time) public onlyOwner {
         subCycle = _time;
