@@ -6,10 +6,9 @@ import "./src/data/Metadata.sol";
 
 contract Tomb is Contract, Metadata {
     bool hasInitLize; // 初始化
-    uint64 counter;
 
     // 基础配置
-    uint subscriptionCycle; 
+    uint subscriptionCycle;
     uint sellPrice;
     uint subscriptionPrice;
 
@@ -38,9 +37,9 @@ contract Tomb is Contract, Metadata {
         require(!hasInitLize);
 
         ERC721Init(_name, _symbol); // ERC721初始化
-        counter++; // 初始化conter为1
         _transferOwnership(msg.sender); // 移交owner权限
 
+        /* 初始化配置参数 */
         subscriptionCycle = 7 days;
         sellPrice = 0.088 ether;
         subscriptionPrice = 0.088 ether;
@@ -49,20 +48,22 @@ contract Tomb is Contract, Metadata {
     }
 
     // 铸造一个新的tokenId
-    function mint(address player, string memory hash)
-        external
-        payable
-        returns (uint)
-    {
+    function mint(
+        address player,
+        uint tokenID,
+        string memory tokenURiHash
+    ) external payable {
         // require(msg.value == sellPrice);
-        _mint(player, counter); // mint
-        _tokenURIHash[counter] = hash; // metadata
-        extendExpiresTimeByTokenId(counter);
-        _tokens[counter].user = player;
-        _tokens[counter].transferTimes = 1;
-        userOf[player].push(counter);
-        counter++;
-        return counter;
+
+        // mint
+        _mint(player, tokenID);
+        _setTokenHash(tokenID, tokenURiHash);
+
+        _tokenURIHash[tokenID] = tokenURiHash; // metadata
+        extendExpiresTimeByTokenId(tokenID);
+        _tokens[tokenID].user = player;
+        _tokens[tokenID].transferTimes = 1;
+        userOf[player].push(tokenID);
     }
 
     // 延长订阅一个tokenId

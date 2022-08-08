@@ -6,7 +6,24 @@ import "../ERC/ERC721.sol";
 
 contract Metadata is Auth, ERC721 {
     string private _baseTokenURI;
+    mapping(uint => string) private tokenHash;
 
+    /* 设置tokenhash */
+    function _setTokenHash(uint tokenID, string memory _tokenHash) internal {
+        tokenHash[tokenID] = _tokenHash;
+    }
+
+    /* 设置tokenURI */
+    function setTokenURI(string memory _tokenURI) public onlyOwner {
+        _baseTokenURI = _tokenURI;
+    }
+
+    /* 查询tokenHash */
+    function queryTokenHash(uint tokenId) public view returns (string memory) {
+        return tokenHash[tokenId];
+    }
+
+    /* 查询tokenID */
     function tokenURI(uint256 tokenId)
         public
         view
@@ -17,14 +34,9 @@ contract Metadata is Auth, ERC721 {
         return
             bytes(_baseTokenURI).length != 0
                 ? string(
-                    abi.encodePacked(_baseTokenURI, toString(tokenId), ".json")
+                    abi.encodePacked(_baseTokenURI, tokenHash[tokenId], ".json")
                 )
                 : "";
-    }
-
-    /* 设置tokenURI */
-    function setTokenURI(string memory _tokenURI) public onlyOwner {
-        _baseTokenURI = _tokenURI;
     }
 
     function toString(uint256 value) internal pure returns (string memory) {
