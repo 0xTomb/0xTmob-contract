@@ -8,16 +8,7 @@ import "./src/Letter/Letter.sol";
 
 contract Tomb is Contract, Metadata, Sub, Letter {
     bool hasInitLize; // 初始化
-
-    // 基础配置
-    uint sellPrice;
-
-    struct TokenInfoStruct {
-        address user;
-        uint expires;
-        uint transferTimes;
-        bool isLettering;
-    }
+    uint sellPrice; // 出售价格
 
     function initialize(string memory _name, string memory _symbol) public {
         require(!hasInitLize);
@@ -48,10 +39,10 @@ contract Tomb is Contract, Metadata, Sub, Letter {
 
     function _afterTokenTransfer(
         address,
-        address,
+        address to,
         uint256 _tokenID
     ) internal virtual override {
-        require(ownerOf(_tokenID) == msg.sender);
+        require(ownerOf(_tokenID) == to);
         _toeknRevokeSub(_tokenID);
         _setHashLetter(_tokenID, false);
     }
