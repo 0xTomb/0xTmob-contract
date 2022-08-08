@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "../auth/Auth.sol";
-
-contract Letter is Auth {
+contract Letter {
     /* 查询是否刻字，已刻字则不许再刻 */
     mapping(uint => bool) public hasLetter;
 
