@@ -3,142 +3,152 @@
  Files Description Table
 
 
-| File Name                                                                        | SHA-1 Hash                               |
-| -------------------------------------------------------------------------------- | ---------------------------------------- |
-| contracts/OxTomb.sol                                                             | de30cc18476357545e00f0530667799c2ed98e91 |
-| node_modules/hardhat/console.sol                                                 | ba36558e776f482d532a19c9857446aeaec0f0ca |
-| node_modules/@openzeppelin/contracts/access/Ownable.sol                          | 691ac8cc8ecc93fa144beb50c3b0263300d15321 |
-| node_modules/@openzeppelin/contracts/utils/Context.sol                           | 719844505df30bda93516e78eab1ced3bfe9ff4a |
-| node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol                     | 176c437a3504e5ce44866ed2fb1312dea872890f |
-| node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol                    | e27fb8dd0800b3a5ed4c7908539c49bb4b4986b0 |
-| node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol             | d9d927f913d1d062ea9931d132a2f49f5e0cc423 |
-| node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol            | 814675660e7b7a8dec20898bef80ef03e69bd4b2 |
-| node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol | f2961c701500b017eb65f22ae6a5bc46486b959a |
-| node_modules/@openzeppelin/contracts/utils/Address.sol                           | 7a15fa9cfb040619d637893c4149db17bccc0b8b |
-| node_modules/@openzeppelin/contracts/utils/Strings.sol                           | 64a06a9e23bae30c0bbeb4b6acb408ae54f6c379 |
-| node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol              | b3cc6713a4ecd5a40a432dd8a7382c609564ee1a |
+|  File Name  |  SHA-1 Hash  |
+|-------------|--------------|
+| contracts/Tomb.sol | a2de64f85fa7adb1807eb1026b48cc6f18e7a2ff |
+| contracts/src/data/Contract.sol | fb0bd2a459d63ac949fc8c547efc6add52caa162 |
+| contracts/src/auth/Auth.sol | 61437f46cdbc5b4c8c939b603a6f1efdc1d1f1d5 |
+| contracts/src/data/Metadata.sol | 87c77896fc511eaf169c45b6de6cf06ac2250859 |
+| contracts/src/ERC/ERC721.sol | e47ea755d01f26cd1474abc0f6100e171caa4d3c |
+| contracts/src/ERC/IERC721.sol | b9ebb4b8b338bdc6963743014a76e23a157e4119 |
+| contracts/src/ERC/utils/IERC165.sol | 43739edf670c0c187687f4e80674f1cb00c84926 |
+| contracts/src/ERC/IERC721Receiver.sol | c275765b9986651aacb05123459af40286d98189 |
+| contracts/src/ERC/IERC721Metadata.sol | 3aebae13a1e494a352d6a9e6fcbd3da4e2209248 |
+| contracts/src/ERC/utils/Address.sol | 815a50a023c9e0ebc3c4580e412b39a7bfc031a2 |
+| contracts/src/ERC/utils/Context.sol | 707026989f1d8217aa9fed3d6a58f37b6a5f9c30 |
+| contracts/src/ERC/utils/Strings.sol | 6e1d2ec3d4269f967cd342ec603b0d74d36acc9d |
+| contracts/src/ERC/utils/ERC165.sol | 0457916fc0867075953c85f957f0cc3798e0e685 |
+| contracts/src/sub/Sub.sol | 1b192de0403e8031de6764d39bd2908a1b6d3e29 |
+| contracts/src/Letter/Letter.sol | 6d8587451dfd546d848d455ee787d18609989c02 |
+| contracts/src/weathering/Weathering.sol | 4c3a2ae92e015ddae7dc5d35037f2387e8d4c1a6 |
 
 
  Contracts Description Table
 
 
-|      Contract       |            Type            |                   Bases                   |                |                    |
-| :-----------------: | :------------------------: | :---------------------------------------: | :------------: | :----------------: |
-|          └          |     **Function Name**      |              **Visibility**               | **Mutability** |   **Modifiers**    |
-|                     |                            |                                           |                |                    |
-|     **oxTomb**      |       Implementation       |              ERC721, Ownable              |                |                    |
-|          └          |       <Constructor>        |                 Public ❗️                  |       🛑        |       ERC721       |
-|          └          |            mint            |                External ❗️                 |       💵        |        NO❗️         |
-|          └          |        subscription        |                External ❗️                 |       💵        | onlyOwnerOrCreator |
-|          └          |         lettering          |                External ❗️                 |       🛑        | onlyOwnerOrCreator |
-|          └          |        contractURI         |                 Public ❗️                  |                |        NO❗️         |
-|          └          |          tokenURI          |                 Public ❗️                  |                |        NO❗️         |
-|          └          |          _baseURI          |                Internal 🔒                 |                |                    |
-|          └          | extendExpiresTimeByTokenId |                 Private 🔐                 |       🛑        |                    |
-|          └          |   queryExpiresByTokenId    |                External ❗️                 |                |        NO❗️         |
-|          └          |     isExpiresByTokenId     |                External ❗️                 |                |        NO❗️         |
-|          └          |          toString          |                Internal 🔒                 |                |                    |
-|          └          |         <Fallback>         |                External ❗️                 |       💵        |        NO❗️         |
-|          └          |      <Receive Ether>       |                External ❗️                 |       💵        |        NO❗️         |
-|          └          |       setContractURI       |                External ❗️                 |       🛑        |     onlyOwner      |
-|          └          |         setBaseURI         |                External ❗️                 |       🛑        |     onlyOwner      |
-|          └          |      setProxyContract      |                External ❗️                 |       🛑        |     onlyOwner      |
-|          └          |    setSubscriptionCycle    |                External ❗️                 |       🛑        |     onlyOwner      |
-|          └          |        setSellPrice        |                External ❗️                 |       🛑        |     onlyOwner      |
-|          └          |    setSubscriptionPrice    |                External ❗️                 |       🛑        |     onlyOwner      |
-|          └          |       serDefaultURI        |                External ❗️                 |       🛑        |     onlyOwner      |
-|          └          |    _afterTokenTransfer     |                Internal 🔒                 |       🛑        |                    |
-|     **Ownable**     |       Implementation       |                  Context                  |                |                    |
-|          └          |       <Constructor>        |                 Public ❗️                  |       🛑        |        NO❗️         |
-|          └          |           owner            |                 Public ❗️                  |                |        NO❗️         |
-|          └          |        _checkOwner         |                Internal 🔒                 |                |                    |
-|          └          |     renounceOwnership      |                 Public ❗️                  |       🛑        |     onlyOwner      |
-|          └          |     transferOwnership      |                 Public ❗️                  |       🛑        |     onlyOwner      |
-|          └          |     _transferOwnership     |                Internal 🔒                 |       🛑        |                    |
-|                     |                            |                                           |                |                    |
-|     **Context**     |       Implementation       |                                           |                |                    |
-|          └          |         _msgSender         |                Internal 🔒                 |                |                    |
-|          └          |          _msgData          |                Internal 🔒                 |                |                    |
-|                     |                            |                                           |                |                    |
-|     **ERC721**      |       Implementation       | Context, ERC165, IERC721, IERC721Metadata |                |                    |
-|          └          |       <Constructor>        |                 Public ❗️                  |       🛑        |        NO❗️         |
-|          └          |     supportsInterface      |                 Public ❗️                  |                |        NO❗️         |
-|          └          |         balanceOf          |                 Public ❗️                  |                |        NO❗️         |
-|          └          |          ownerOf           |                 Public ❗️                  |                |        NO❗️         |
-|          └          |            name            |                 Public ❗️                  |                |        NO❗️         |
-|          └          |           symbol           |                 Public ❗️                  |                |        NO❗️         |
-|          └          |          tokenURI          |                 Public ❗️                  |                |        NO❗️         |
-|          └          |          _baseURI          |                Internal 🔒                 |                |                    |
-|          └          |          approve           |                 Public ❗️                  |       🛑        |        NO❗️         |
-|          └          |        getApproved         |                 Public ❗️                  |                |        NO❗️         |
-|          └          |     setApprovalForAll      |                 Public ❗️                  |       🛑        |        NO❗️         |
-|          └          |      isApprovedForAll      |                 Public ❗️                  |                |        NO❗️         |
-|          └          |        transferFrom        |                 Public ❗️                  |       🛑        |        NO❗️         |
-|          └          |      safeTransferFrom      |                 Public ❗️                  |       🛑        |        NO❗️         |
-|          └          |      safeTransferFrom      |                 Public ❗️                  |       🛑        |        NO❗️         |
-|          └          |       _safeTransfer        |                Internal 🔒                 |       🛑        |                    |
-|          └          |          _exists           |                Internal 🔒                 |                |                    |
-|          └          |     _isApprovedOrOwner     |                Internal 🔒                 |                |                    |
-|          └          |         _safeMint          |                Internal 🔒                 |       🛑        |                    |
-|          └          |         _safeMint          |                Internal 🔒                 |       🛑        |                    |
-|          └          |           _mint            |                Internal 🔒                 |       🛑        |                    |
-|          └          |           _burn            |                Internal 🔒                 |       🛑        |                    |
-|          └          |         _transfer          |                Internal 🔒                 |       🛑        |                    |
-|          └          |          _approve          |                Internal 🔒                 |       🛑        |                    |
-|          └          |     _setApprovalForAll     |                Internal 🔒                 |       🛑        |                    |
-|          └          |       _requireMinted       |                Internal 🔒                 |                |                    |
-|          └          |   _checkOnERC721Received   |                 Private 🔐                 |       🛑        |                    |
-|          └          |    _beforeTokenTransfer    |                Internal 🔒                 |       🛑        |                    |
-|          └          |    _afterTokenTransfer     |                Internal 🔒                 |       🛑        |                    |
-|                     |                            |                                           |                |                    |
-|     **IERC721**     |         Interface          |                  IERC165                  |                |                    |
-|          └          |         balanceOf          |                External ❗️                 |                |        NO❗️         |
-|          └          |          ownerOf           |                External ❗️                 |                |        NO❗️         |
-|          └          |      safeTransferFrom      |                External ❗️                 |       🛑        |        NO❗️         |
-|          └          |      safeTransferFrom      |                External ❗️                 |       🛑        |        NO❗️         |
-|          └          |        transferFrom        |                External ❗️                 |       🛑        |        NO❗️         |
-|          └          |          approve           |                External ❗️                 |       🛑        |        NO❗️         |
-|          └          |     setApprovalForAll      |                External ❗️                 |       🛑        |        NO❗️         |
-|          └          |        getApproved         |                External ❗️                 |                |        NO❗️         |
-|          └          |      isApprovedForAll      |                External ❗️                 |                |        NO❗️         |
-|                     |                            |                                           |                |                    |
-|     **IERC165**     |         Interface          |                                           |                |                    |
-|          └          |     supportsInterface      |                External ❗️                 |                |        NO❗️         |
-|                     |                            |                                           |                |                    |
-| **IERC721Receiver** |         Interface          |                                           |                |                    |
-|          └          |      onERC721Received      |                External ❗️                 |       🛑        |        NO❗️         |
-|                     |                            |                                           |                |                    |
-| **IERC721Metadata** |         Interface          |                  IERC721                  |                |                    |
-|          └          |            name            |                External ❗️                 |                |        NO❗️         |
-|          └          |           symbol           |                External ❗️                 |                |        NO❗️         |
-|          └          |          tokenURI          |                External ❗️                 |                |        NO❗️         |
-|                     |                            |                                           |                |                    |
-|     **Address**     |          Library           |                                           |                |                    |
-|          └          |         isContract         |                Internal 🔒                 |                |                    |
-|          └          |         sendValue          |                Internal 🔒                 |       🛑        |                    |
-|          └          |        functionCall        |                Internal 🔒                 |       🛑        |                    |
-|          └          |        functionCall        |                Internal 🔒                 |       🛑        |                    |
-|          └          |   functionCallWithValue    |                Internal 🔒                 |       🛑        |                    |
-|          └          |   functionCallWithValue    |                Internal 🔒                 |       🛑        |                    |
-|          └          |     functionStaticCall     |                Internal 🔒                 |                |                    |
-|          └          |     functionStaticCall     |                Internal 🔒                 |                |                    |
-|          └          |    functionDelegateCall    |                Internal 🔒                 |       🛑        |                    |
-|          └          |    functionDelegateCall    |                Internal 🔒                 |       🛑        |                    |
-|          └          |      verifyCallResult      |                Internal 🔒                 |                |                    |
-|                     |                            |                                           |                |                    |
-|     **Strings**     |          Library           |                                           |                |                    |
-|          └          |          toString          |                Internal 🔒                 |                |                    |
-|          └          |        toHexString         |                Internal 🔒                 |                |                    |
-|          └          |        toHexString         |                Internal 🔒                 |                |                    |
-|          └          |        toHexString         |                Internal 🔒                 |                |                    |
-|                     |                            |                                           |                |                    |
-|     **ERC165**      |       Implementation       |                  IERC165                  |                |                    |
-|          └          |     supportsInterface      |                 Public ❗️                  |                |        NO❗️         |
+|  Contract  |         Type        |       Bases      |                  |                 |
+|:----------:|:-------------------:|:----------------:|:----------------:|:---------------:|
+|     └      |  **Function Name**  |  **Visibility**  |  **Mutability**  |  **Modifiers**  |
+||||||
+| **Tomb** | Implementation | Contract, Metadata, Sub, Letter, Weathering |||
+| └ | initialize | Public ❗️ | 🛑  |NO❗️ |
+| └ | mint | External ❗️ |  💵 |NO❗️ |
+| └ | setSellPrice | External ❗️ | 🛑  | onlyOwner |
+| └ | _afterTokenTransfer | Internal 🔒 | 🛑  | |
+||||||
+| **Contract** | Implementation | Auth |||
+| └ | contractURI | Public ❗️ |   |NO❗️ |
+| └ | changedContractURI | Public ❗️ | 🛑  | onlyOwner |
+||||||
+| **Auth** | Implementation |  |||
+| └ | owner | Public ❗️ |   |NO❗️ |
+| └ | _checkOwner | Internal 🔒 |   | |
+| └ | renounceOwnership | Public ❗️ | 🛑  | onlyOwner |
+| └ | transferOwnership | Public ❗️ | 🛑  | onlyOwner |
+| └ | _transferOwnership | Internal 🔒 | 🛑  | |
+||||||
+| **Metadata** | Implementation | Auth, ERC721 |||
+| └ | _setTokenHash | Internal 🔒 | 🛑  | |
+| └ | setTokenURI | Public ❗️ | 🛑  | onlyOwner |
+| └ | tokenURI | Public ❗️ |   |NO❗️ |
+| └ | toString | Internal 🔒 |   | |
+||||||
+| **ERC721** | Implementation | Context, ERC165, IERC721, IERC721Metadata |||
+| └ | ERC721Init | Internal 🔒 | 🛑  | |
+| └ | supportsInterface | Public ❗️ |   |NO❗️ |
+| └ | balanceOf | Public ❗️ |   |NO❗️ |
+| └ | ownerOf | Public ❗️ |   |NO❗️ |
+| └ | name | Public ❗️ |   |NO❗️ |
+| └ | symbol | Public ❗️ |   |NO❗️ |
+| └ | tokenURI | Public ❗️ |   |NO❗️ |
+| └ | _baseURI | Internal 🔒 |   | |
+| └ | approve | Public ❗️ | 🛑  |NO❗️ |
+| └ | getApproved | Public ❗️ |   |NO❗️ |
+| └ | setApprovalForAll | Public ❗️ | 🛑  |NO❗️ |
+| └ | isApprovedForAll | Public ❗️ |   |NO❗️ |
+| └ | transferFrom | Public ❗️ | 🛑  |NO❗️ |
+| └ | safeTransferFrom | Public ❗️ | 🛑  |NO❗️ |
+| └ | safeTransferFrom | Public ❗️ | 🛑  |NO❗️ |
+| └ | _safeTransfer | Internal 🔒 | 🛑  | |
+| └ | _exists | Internal 🔒 |   | |
+| └ | _isApprovedOrOwner | Internal 🔒 |   | |
+| └ | _safeMint | Internal 🔒 | 🛑  | |
+| └ | _safeMint | Internal 🔒 | 🛑  | |
+| └ | _mint | Internal 🔒 | 🛑  | |
+| └ | _burn | Internal 🔒 | 🛑  | |
+| └ | _transfer | Internal 🔒 | 🛑  | |
+| └ | _approve | Internal 🔒 | 🛑  | |
+| └ | _setApprovalForAll | Internal 🔒 | 🛑  | |
+| └ | _requireMinted | Internal 🔒 |   | |
+| └ | _checkOnERC721Received | Private 🔐 | 🛑  | |
+| └ | _beforeTokenTransfer | Internal 🔒 | 🛑  | |
+| └ | _afterTokenTransfer | Internal 🔒 | 🛑  | |
+||||||
+| **IERC721** | Interface | IERC165 |||
+| └ | balanceOf | External ❗️ |   |NO❗️ |
+| └ | ownerOf | External ❗️ |   |NO❗️ |
+| └ | safeTransferFrom | External ❗️ | 🛑  |NO❗️ |
+| └ | safeTransferFrom | External ❗️ | 🛑  |NO❗️ |
+| └ | transferFrom | External ❗️ | 🛑  |NO❗️ |
+| └ | approve | External ❗️ | 🛑  |NO❗️ |
+| └ | setApprovalForAll | External ❗️ | 🛑  |NO❗️ |
+| └ | getApproved | External ❗️ |   |NO❗️ |
+| └ | isApprovedForAll | External ❗️ |   |NO❗️ |
+||||||
+| **IERC165** | Interface |  |||
+| └ | supportsInterface | External ❗️ |   |NO❗️ |
+||||||
+| **IERC721Receiver** | Interface |  |||
+| └ | onERC721Received | External ❗️ | 🛑  |NO❗️ |
+||||||
+| **IERC721Metadata** | Interface | IERC721 |||
+| └ | name | External ❗️ |   |NO❗️ |
+| └ | symbol | External ❗️ |   |NO❗️ |
+| └ | tokenURI | External ❗️ |   |NO❗️ |
+||||||
+| **Address** | Library |  |||
+| └ | isContract | Internal 🔒 |   | |
+| └ | sendValue | Internal 🔒 | 🛑  | |
+| └ | functionCall | Internal 🔒 | 🛑  | |
+| └ | functionCall | Internal 🔒 | 🛑  | |
+| └ | functionCallWithValue | Internal 🔒 | 🛑  | |
+| └ | functionCallWithValue | Internal 🔒 | 🛑  | |
+| └ | functionStaticCall | Internal 🔒 |   | |
+| └ | functionStaticCall | Internal 🔒 |   | |
+| └ | verifyCallResult | Internal 🔒 |   | |
+||||||
+| **Context** | Implementation |  |||
+| └ | _msgSender | Internal 🔒 |   | |
+| └ | _msgData | Internal 🔒 |   | |
+||||||
+| **Strings** | Library |  |||
+| └ | toString | Internal 🔒 |   | |
+| └ | toHexString | Internal 🔒 |   | |
+| └ | toHexString | Internal 🔒 |   | |
+| └ | toHexString | Internal 🔒 |   | |
+||||||
+| **ERC165** | Implementation | IERC165 |||
+| └ | supportsInterface | Public ❗️ |   |NO❗️ |
+||||||
+| **Sub** | Implementation | Auth |||
+| └ | setSubCycle | Public ❗️ | 🛑  | onlyOwner |
+| └ | setSubPrice | Public ❗️ | 🛑  | onlyOwner |
+| └ | _tokenSubInit | Internal 🔒 | 🛑  | |
+| └ | tokenSubExtend | External ❗️ |  💵 |NO❗️ |
+| └ | _toeknRevokeSub | Internal 🔒 | 🛑  | |
+| └ | isExp | Public ❗️ |   |NO❗️ |
+||||||
+| **Letter** | Implementation |  |||
+| └ | _setHasLetter | Internal 🔒 | 🛑  | |
+| └ | tokenLetter | External ❗️ | 🛑  |NO❗️ |
+||||||
+| **Weathering** | Implementation |  |||
+| └ | _addWeatheringTimes | Internal 🔒 | 🛑  | |
 
 
  Legend
 
-| Symbol | Meaning                   |
-| :----: | ------------------------- |
-|   🛑    | Function can modify state |
-|   💵    | Function is payable       |
+|  Symbol  |  Meaning  |
+|:--------:|-----------|
+|    🛑    | Function can modify state |
+|    💵    | Function is payable |
