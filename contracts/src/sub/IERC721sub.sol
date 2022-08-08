@@ -20,7 +20,7 @@ interface Sub is IERC165 {
 
     function tokenSubExtend(uint _tokenID) external payable;
 
-    function toeknRevokeSub(uint _tokenID) external;
+    function toeknSubRevoke(uint _tokenID) external;
 
-    function isExp(uint _tokenID) external returns (bool);
+    function tokenIsExp(uint _tokenID) external returns (bool);
 }
