@@ -1,21 +1,15 @@
 // SPDX-License-Identifier: CC0-1.0
 pragma solidity ^0.8.0;
 
-import "./src/auth/Auth.sol";
-import "./src/ERC/ERC721.sol";
+import "./src/data/Contract.sol";
+import "./src/data/Metadata.sol";
 
-contract Tomb is ERC721, Auth {
+contract Tomb is Contract, Metadata {
+    bool hasInitLize; // 初始化
     uint64 counter;
-    bool hasInitLize;
-
-    // 合约配置项
-    string BASEURI; // 刻字：有字碑文
-    string DEFAULTURI; // 默认：无字碑
-    string CONTRACTURI;
-    address PROXYADDRESS;
 
     // 基础配置
-    uint subscriptionCycle; // 7天
+    uint subscriptionCycle; 
     uint sellPrice;
     uint subscriptionPrice;
 
@@ -89,36 +83,6 @@ contract Tomb is ERC721, Auth {
         emit Letter(_tokenId);
     }
 
-    function contractURI() public view returns (string memory) {
-        return CONTRACTURI;
-    }
-
-    function tokenURI(uint256 tokenId)
-        public
-        view
-        virtual
-        override
-        returns (string memory)
-    {
-        TokenInfoStruct memory token = _tokens[tokenId];
-        if (token.isLettering && token.expires > block.timestamp) {
-            return
-                string(
-                    abi.encodePacked(
-                        _baseURI(),
-                        _tokenURIHash[tokenId],
-                        ".json"
-                    )
-                );
-        } else {
-            return DEFAULTURI;
-        }
-    }
-
-    function _baseURI() internal view virtual override returns (string memory) {
-        return BASEURI;
-    }
-
     // 延长一轮token有效期
     function extendExpiresTimeByTokenId(uint _tokenId) private {
         TokenInfoStruct storage tokenInfo = _tokens[_tokenId];
@@ -146,39 +110,6 @@ contract Tomb is ERC721, Auth {
         return false;
     }
 
-    function toString(uint256 value) internal pure returns (string memory) {
-        if (value == 0) {
-            return "0";
-        }
-        uint256 temp = value;
-        uint256 digits;
-        while (temp != 0) {
-            digits++;
-            temp /= 10;
-        }
-        bytes memory buffer = new bytes(digits);
-        while (value != 0) {
-            digits -= 1;
-            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
-            value /= 10;
-        }
-        return string(buffer);
-    }
-
-    receive() external payable {}
-
-    function setContractURI(string memory _contractURI) external onlyOwner {
-        CONTRACTURI = _contractURI;
-    }
-
-    function setBaseURI(string memory baseURI) external onlyOwner {
-        BASEURI = baseURI;
-    }
-
-    function setProxyContract(address _proxyAddress) external onlyOwner {
-        PROXYADDRESS = _proxyAddress;
-    }
-
     // 设置每一轮的时间
     function setSubscriptionCycle(uint _time) external onlyOwner {
         subscriptionCycle = _time;
@@ -190,10 +121,6 @@ contract Tomb is ERC721, Auth {
 
     function setSubscriptionPrice(uint _subscriptionPrice) external onlyOwner {
         subscriptionPrice = _subscriptionPrice;
-    }
-
-    function serDefaultURI(string memory _defaultURI) external onlyOwner {
-        DEFAULTURI = _defaultURI;
     }
 
     function _afterTokenTransfer(
