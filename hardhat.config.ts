@@ -13,7 +13,7 @@ const settings = {
 };
 
 const config: HardhatUserConfig = {
-  defaultNetwork: "rinkeby",
+  /*   defaultNetwork: "rinkeby", */
   solidity: {
     compilers: [{ version: "0.8.12", settings }],
   },

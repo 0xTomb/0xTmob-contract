@@ -2,7 +2,7 @@
   "manifestVersion": "3.2",
   "admin": {
     "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-    "txHash": "0x5a5c9dd5f531f94800666a3af620cc9866ce0f85b75fe4b1224090500be44cab"
+    "txHash": "0x79c1c5374fe556f87fd1b5da5dd05b1af4434adde093e24bb92316939cfd6d0f"
   },
   "proxies": [
     {
@@ -52,14 +52,14 @@
     },
     {
       "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-      "txHash": "0x6b2d51cf10ca6dd4dcb6af94c3d6edd8b4c28a1512680b9fe575330144f67df7",
+      "txHash": "0xba1371960c9455da83d903eaecbd4ffea4479bcf8c7069a6d0de0eeb83cd2c00",
       "kind": "transparent"
     }
   ],
   "impls": {
-    "e7ceb08d6bcb71c77b96570f2987c3439bbc45b7398fe2ab936a9e2a99e9ef72": {
+    "f6db98f0cd6cc67f2b88a8fb66c6d124d2a282b89f10b3f4ddbf58e774e48277": {
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "txHash": "0xa1d6cd913decad3b6a60f7c473f463bf95a91df8a578faea8028b5be4128bc31",
+      "txHash": "0x2bbdc5105494235e66e9c00c1abbec95aa9aede9f0278b4d276a2ff552dd4dfd",
       "layout": {
         "storage": [
           {
@@ -196,23 +196,7 @@
             "slot": "16",
             "type": "t_uint256",
             "contract": "Tomb",
-            "src": "contracts/Tomb.sol:13"
-          },
-          {
-            "label": "counter",
-            "offset": 0,
-            "slot": "17",
-            "type": "t_uint256",
-            "contract": "Tomb",
-            "src": "contracts/Tomb.sol:15"
-          },
-          {
-            "label": "userOfTokens",
-            "offset": 0,
-            "slot": "18",
-            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
-            "contract": "Tomb",
-            "src": "contracts/Tomb.sol:16"
+            "src": "contracts/Tomb.sol:12"
           }
         ],
         "types": {
@@ -220,17 +204,9 @@
             "label": "address",
             "numberOfBytes": "20"
           },
-          "t_array(t_uint256)dyn_storage": {
-            "label": "uint256[]",
-            "numberOfBytes": "32"
-          },
           "t_bool": {
             "label": "bool",
             "numberOfBytes": "1"
-          },
-          "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
-            "label": "mapping(address => uint256[])",
-            "numberOfBytes": "32"
           },
           "t_mapping(t_address,t_bool)": {
             "label": "mapping(address => bool)",
