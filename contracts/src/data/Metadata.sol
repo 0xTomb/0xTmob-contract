@@ -6,7 +6,7 @@ import "../ERC/ERC721.sol";
 
 contract Metadata is Auth, ERC721 {
     string private _baseTokenURI;
-    mapping(uint => string) private tokenHash;
+    mapping(uint => string) public tokenHash;
 
     /* 设置tokenhash */
     function _setTokenHash(uint tokenID, string memory _tokenHash) internal {
@@ -16,11 +16,6 @@ contract Metadata is Auth, ERC721 {
     /* 设置tokenURI */
     function setTokenURI(string memory _tokenURI) public onlyOwner {
         _baseTokenURI = _tokenURI;
-    }
-
-    /* 查询tokenHash */
-    function queryTokenHash(uint tokenId) public view returns (string memory) {
-        return tokenHash[tokenId];
     }
 
     /* 查询tokenID */

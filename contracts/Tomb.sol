@@ -5,11 +5,11 @@ import "./src/data/Contract.sol";
 import "./src/data/Metadata.sol";
 import "./src/sub/Sub.sol";
 import "./src/Letter/Letter.sol";
-import "'./src/weathering/Weathering.sol";
+import "./src/weathering/Weathering.sol";
 
 contract Tomb is Contract, Metadata, Sub, Letter, Weathering {
     bool hasInitLize; // 初始化
-    uint sellPrice; // 出售价格
+    uint public sellPrice; // 出售价格
 
     function initialize(string memory _name, string memory _symbol) public {
         require(!hasInitLize);
@@ -45,7 +45,7 @@ contract Tomb is Contract, Metadata, Sub, Letter, Weathering {
     ) internal virtual override {
         require(ownerOf(_tokenID) == to);
         _toeknRevokeSub(_tokenID);
-        _setHashLetter(_tokenID, false);
+        _setHasLetter(_tokenID, false);
         _addWeatheringTimes(_tokenID);
     }
 }

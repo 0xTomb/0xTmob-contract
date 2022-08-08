@@ -8,13 +8,15 @@ contract Letter {
     event LetterEvent(uint indexed tokenId, address indexed oprator);
 
     /* 设置是否有刻字 */
-    function _setHashLetter(uint _tokenID, bool _state) internal {
+    function _setHasLetter(uint _tokenID, bool _state) internal {
         hasLetter[_tokenID] = _state;
         emit LetterEvent(_tokenID, msg.sender);
     }
 
-    /* 已刻字 */
-    function setTokenLetter(uint _tokenID) external {
+    /* TODO */
+    /* 刻字 */
+    function tokenLetter(uint _tokenID) external {
+        require(hasLetter[_tokenID] == false);
         hasLetter[_tokenID] = true;
         emit LetterEvent(_tokenID, msg.sender);
     }

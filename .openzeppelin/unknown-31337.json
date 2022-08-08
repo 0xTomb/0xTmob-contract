@@ -1,0 +1,206 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "txHash": "0xa779df58a4ed45aa19c45f2c3030b5da2405a22116e6b4e10e463afd2809cef0"
+  },
+  "proxies": [
+    {
+      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "txHash": "0x3ac1bea5a42acb26c3d4a8755a4a2469cb2333df45c60777a51009011db2e26e",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "d9fe0b463e1cbb03450fd1286004a821388b261fbb051e51fa7e0b4f861d6ce4": {
+      "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "txHash": "0x77e03139b3d70612c49d53f016d8f928cdef259bcd5e8b71780415098e1dadcf",
+      "layout": {
+        "storage": [
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address",
+            "contract": "Auth",
+            "src": "contracts/src/auth/Auth.sol:5"
+          },
+          {
+            "label": "_contractURI",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage",
+            "contract": "Contract",
+            "src": "contracts/src/data/Contract.sol:9"
+          },
+          {
+            "label": "_name",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_string_storage",
+            "contract": "ERC721",
+            "src": "contracts/src/ERC/ERC721.sol:19"
+          },
+          {
+            "label": "_symbol",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_string_storage",
+            "contract": "ERC721",
+            "src": "contracts/src/ERC/ERC721.sol:22"
+          },
+          {
+            "label": "_owners",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_uint256,t_address)",
+            "contract": "ERC721",
+            "src": "contracts/src/ERC/ERC721.sol:25"
+          },
+          {
+            "label": "_balances",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "ERC721",
+            "src": "contracts/src/ERC/ERC721.sol:28"
+          },
+          {
+            "label": "_tokenApprovals",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_uint256,t_address)",
+            "contract": "ERC721",
+            "src": "contracts/src/ERC/ERC721.sol:31"
+          },
+          {
+            "label": "_operatorApprovals",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
+            "contract": "ERC721",
+            "src": "contracts/src/ERC/ERC721.sol:34"
+          },
+          {
+            "label": "_baseTokenURI",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_string_storage",
+            "contract": "Metadata",
+            "src": "contracts/src/data/Metadata.sol:8"
+          },
+          {
+            "label": "tokenHash",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_uint256,t_string_storage)",
+            "contract": "Metadata",
+            "src": "contracts/src/data/Metadata.sol:9"
+          },
+          {
+            "label": "subCycle",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_uint256",
+            "contract": "Sub",
+            "src": "contracts/src/sub/Sub.sol:7"
+          },
+          {
+            "label": "subPrice",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_uint256",
+            "contract": "Sub",
+            "src": "contracts/src/sub/Sub.sol:8"
+          },
+          {
+            "label": "subTokenInfo",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "contract": "Sub",
+            "src": "contracts/src/sub/Sub.sol:10"
+          },
+          {
+            "label": "hasLetter",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_mapping(t_uint256,t_bool)",
+            "contract": "Letter",
+            "src": "contracts/src/Letter/Letter.sol:6"
+          },
+          {
+            "label": "WeatheringTimes",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "contract": "Weathering",
+            "src": "contracts/src/weathering/Weathering.sol:5"
+          },
+          {
+            "label": "hasInitLize",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_bool",
+            "contract": "Tomb",
+            "src": "contracts/Tomb.sol:11"
+          },
+          {
+            "label": "sellPrice",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_uint256",
+            "contract": "Tomb",
+            "src": "contracts/Tomb.sol:12"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_bool))": {
+            "label": "mapping(address => mapping(address => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_address)": {
+            "label": "mapping(uint256 => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_bool)": {
+            "label": "mapping(uint256 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_string_storage)": {
+            "label": "mapping(uint256 => string)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,8 +4,8 @@ pragma solidity ^0.8.0;
 import "../auth/Auth.sol";
 
 contract Sub is Auth {
-    uint private subCycle;
-    uint private subPrice;
+    uint public subCycle;
+    uint public subPrice;
 
     mapping(uint => uint) public subTokenInfo;
 
