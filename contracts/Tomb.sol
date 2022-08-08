@@ -29,8 +29,10 @@ contract Tomb is Contract, Metadata, Sub, Letter, Weathering {
         uint _tokenID,
         string memory _tokenURiHash
     ) external payable {
+        require(subTokenInfo[_tokenID] == 0);
         // require(msg.value == sellPrice);
         _mint(_player, _tokenID);
+        _tokenSubInit(_tokenID);
         _setTokenHash(_tokenID, _tokenURiHash);
     }
 

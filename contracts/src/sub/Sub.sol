@@ -27,7 +27,7 @@ contract Sub is Auth {
     }
 
     /* mint时候的token初始化 */
-    function tokenSubInit(uint _tokenID) internal {
+    function _tokenSubInit(uint _tokenID) internal {
         subTokenInfo[_tokenID] += block.timestamp + subCycle;
         emit ExtendSubTime(_tokenID, msg.sender, subTokenInfo[_tokenID]);
     }
