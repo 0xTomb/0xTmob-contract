@@ -38,7 +38,12 @@ contract Sub is Auth {
     /* 延长token订阅时间 */
     function tokenSubExtend(uint _tokenID) external payable {
         /*     require(msg.value >= subPrice); */
-        subTokenInfo[_tokenID] += subCycle;
+        if (subTokenInfo[_tokenID] > block.timestamp) {
+            subTokenInfo[_tokenID] += subCycle;
+        } else {
+            subTokenInfo[_tokenID] += block.timestamp + subCycle;
+        }
+
         emit ExtendSubTime(_tokenID, msg.sender, subTokenInfo[_tokenID]);
     }
 
